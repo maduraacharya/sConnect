@@ -54,7 +54,7 @@ if( isset( $_POST['login'])) {
     <p align="center"><b>sConnect Registration</b></p>
     	
 	<div align="center">
-	<form method="post" action="login.php" >
+	<form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" >
     <br /> &nbsp; &nbsp; &nbsp;Email &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<input type="text" name="contact_email" size=50>
     <br><br> &nbsp; &nbsp; &nbsp;Password &nbsp; &nbsp; &nbsp; &nbsp;<input type="text" name="login_pwd" size=50>
 	<br /><br /><br /><input type="submit" name="login" value="Log In">
