@@ -1,4 +1,8 @@
 <?php
+
+// Start the session
+    session_start();
+
     ?>
 
 <!doctype html>
@@ -14,10 +18,12 @@
 <body>
 <div id="header">
 <?php
-    echo "Welcome! " . $_SESSION['admin']['FIRST_NAME'] .", You have logged on successfully <br />";
+	echo '<h2>Admin Page</h2>';
+    echo "Welcome! " . $_SESSION['admin']['FIRST_NAME'] .", You have logged on successfully. <br><br>";
     ?>
 </div>
 
 <div id="nav">
-<a href="http://localhost:8888/sConnect/sConnect/logout_admin.php">Logout</a></br>
+<a href="admin_stats.php">Stats</a></br>
+<a href="logout_admin.php">Logout</a></br>
 </div>

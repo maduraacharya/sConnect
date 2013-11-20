@@ -1,5 +1,5 @@
 <?php
-    echo "Hello";
+
     // Start the session
     session_start();
     
@@ -19,7 +19,7 @@
         $form_admin_password = mysqli_real_escape_string($db_connection, trim($_POST["login_pwd"]));
         
         // query user table with the admin name and password entered
-        $query_admin_validation = "SELECT USER_ID FROM SCONNECT_USER WHERE FIRST_NAME = '". $form_admin_first_name . "' AND LOGIN_PWD = '" .
+        $query_admin_validation = "SELECT * FROM SCONNECT_USER WHERE FIRST_NAME = '". $form_admin_first_name . "' AND LOGIN_PWD = '" .
         $form_admin_password . "'";
         $data = mysqli_query($db_connection, $query_admin_validation)
 		or die('Error querying database.');
@@ -29,9 +29,10 @@
             
             // set session variables
             $row = mysqli_fetch_array($data);
-            $_SESSION['admin'] = $row['USER_ID'];
+            $_SESSION['admin'] = $row; // ['USER_ID'];
             
-            header('Location: http://localhost:8888/sConnect/sConnect/admin_homepage.php');
+			header('Location: admin_homepage.php');
+            // header('Location: http://localhost:8888/sConnect/sConnect/admin_homepage.php');
             exit();
         }
         else {
@@ -46,11 +47,30 @@
 <head>
 <style>
 .error {color: #FF0000;}
-    </style>
-    
-    <title>sConnect Admin Login</title>
-    
-    </head>
+
+body{
+	
+}
+
+.admin_login_content {
+
+	background-color:white;
+
+	border-style:solid;
+	border-width:1px;
+	
+	width:50%;
+	margin-left:auto;
+	margin-right:auto;
+	margin-top: 100px;
+	
+	padding-bottom:20px;
+
+}
+
+</style>
+<title>sConnect Admin Login</title>
+</head>
     <body>
     
     <?php
@@ -71,20 +91,22 @@
     //TODO: NEED TO ADJUST THE SPACING BETWEEN HTML belows
     ?>
     
+	<div class="admin_login_content">
     <h2 align="center"> Administrator login </h2>
         <div align="center">
             <form method="post" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>" > <br><br>
-                Firstname: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="text" name="admin_name" size=50> <br><br>
+                First name: &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <input type="text" name="admin_name" size=50>
                     <span class="error">* <?php echo $nameErr;?></span> <br><br>
-                Password: &nbsp; &nbsp; &nbsp; &nbsp; <input type="password" name="login_pwd" size=50> <br><br>
-                    <span class="error">* <?php echo $pwdErr;?></span> <br><br>
+                Password: &nbsp; &nbsp; &nbsp; &nbsp; <input type="password" name="login_pwd" size=50>
+                    <span class="error">* <?php echo $pwdErr;?></span> <br><br><br>
                 <input type="submit" name="admin_login" value="Log In">
             </form>
     
         <div id="bottom content">
-            <a href="http://localhost:8888/sConnect/sConnect/forgot_password_admin.php">Forgot Password</a></br>
+            <?php // <a href="forgot_password_admin.php">Forgot Password</a></br> ?>
         </div>
-    
-    </div>
+		</div>
+	</div>
+	
     </body>
     </html>
