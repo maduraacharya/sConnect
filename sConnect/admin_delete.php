@@ -14,14 +14,20 @@
 <html>
 <head>
 <title>sConnect Admin Delete Posts</title>
+<link href="admin.css" rel="stylesheet">
 </head>
 <body>
 
+<div class="container">
+
 <h2>Admin Delete Posts Page</h2>
 
+<div class="header-sub">
 <a href="admin_homepage.php">go back to admin home</a><br><br>
+</div>
 
-<div <?php //align="center" ?>>
+<div class="content">
+
 <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" >
 
 <select name="search_type">
@@ -33,7 +39,6 @@
 &nbsp; 
 <input type="submit" name="search_submit" value="Search">
 </form>
-</div>
 
 
 <?php
@@ -163,6 +168,7 @@ if( isset( $_POST['search_submit'])) {
 
 
 
-
+</div>
+</div>
 </body>
 </html>

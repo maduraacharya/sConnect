@@ -22,8 +22,11 @@
 <html>
 <head>
 <title>sConnect Admin Delete Posts</title>
+<link href="admin.css" rel="stylesheet">
 </head>
 <body>
+
+<div class="container">
 
 <?php
 
@@ -60,5 +63,6 @@ if( isset( $_POST['submit_delete'] )) {
 <br><br>
 <a href="admin_delete.php">go back to delete posts</a><br>
 
+</div>
 </body>
 </html>
