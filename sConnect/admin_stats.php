@@ -61,11 +61,22 @@
 <html>
 <head>
 <title>sConnect Admin Stats</title>
+<link href="admin.css" rel="stylesheet">
 </head>
 <body>
 
+<div class="container">
+
+<div class="header">
 <h2>Admin Stats Page</h2>
 
+<div class="header-sub">
+<a href="admin_homepage.php">Back to admin home</a><br><br>
+</div>
+
+</div>
+
+<div class="content">
 <?php
 
 echo 'Number of users : ' . $number_of_users . '<br>';
@@ -76,9 +87,9 @@ echo '<br>';
 echo 'Number of items : ' . $number_of_items . '<br>';
 echo 'Number of services : ' . $number_of_services . '<br>';
 
-echo '<br>';
-echo '<a href="admin_homepage.php">Back to admin home</a><br>';
 ?>
+</div>
 
+</div>
 </body>
 </html>

@@ -1,0 +1,43 @@
+
+body {
+	box-sizing:border-box;
+	-moz-box-sizing:border-box; /* Firefox */
+
+	font-family : times new roman;
+	margin: 0px;
+	
+}
+
+h2 {
+	
+	margin-bottom: 10px;
+	padding-bottom: 0px;
+	
+}
+
+.header{
+
+	border-bottom: 1px solid black;
+	
+}
+
+.header-sub{
+	font-size: 0.8em;
+}
+
+.content {
+	/* border-bottom: 1px solid black; */
+	padding-top: 20px;
+	/* padding-bottom: 30px; */
+}
+
+.container {
+	width : 60%;
+	margin: 40px auto;
+	padding: 10px 50px 40px;
+	
+	border: 1px dashed black;
+	
+	background: white;
+
+}
