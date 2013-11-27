@@ -81,7 +81,7 @@
 
 echo 'Number of users : ' . $number_of_users . '<br>';
 echo 'Number of active users (have items/services posted) : ' . $number_of_active_users . '<br>';
-echo 'Percentage of users active: ' . ($number_of_active_users/ $number_of_users)*100 . '%<br>';
+echo 'Percentage of users active: ' . round((($number_of_active_users/ $number_of_users)*100), 1) . '%<br>';
 
 echo '<br>';
 echo 'Number of items : ' . $number_of_items . '<br>';

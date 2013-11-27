@@ -41,3 +41,17 @@ h2 {
 	background: white;
 
 }
+
+.error {
+	font-size: 0.8em;
+	color: red;
+}
+
+.form-textbox {
+	margin-top: 5px;
+}
+
+.success {
+	font-size: 0.8em;
+	color: green;
+}
