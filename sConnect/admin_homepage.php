@@ -35,6 +35,9 @@
 
 <a href="admin_stats.php">Stats</a><br>
 <a href="admin_delete.php">Delete Post</a><br>
+<a href="admin_delete_comment.php">Delete Comment</a><br>
+<br>
+<a href="admin_delete_user.php">Delete User</a><br>
 <br>
 <a href="logout_admin.php">Logout</a><br>
 </div>
