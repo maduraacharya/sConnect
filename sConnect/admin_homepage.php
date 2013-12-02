@@ -15,7 +15,9 @@
 <head>
 <title></title>
 <meta charset="UTF-8" />
+
 <link href="admin.css" rel="stylesheet">
+
 </head>
 
 <body>
@@ -34,7 +36,9 @@
 <div class="content">
 
 <a href="admin_stats.php">Stats</a><br>
-<a href="admin_delete.php">Delete Post</a><br>
+<a href="admin_notify_users2.php">Notify Users</a><br>
+<br>
+<span class="glyphicon glyphicon-search"></span><a href="admin_delete.php"> Delete Post</a><br>
 <a href="admin_delete_comment.php">Delete Comment</a><br>
 <br>
 <a href="admin_delete_user.php">Delete User</a><br>
