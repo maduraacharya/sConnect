@@ -1,35 +1,55 @@
-<?php include 'header.php'; ?>
+<?php 
+include_once 'header.php'; 
+include_once 'UserProfile.php'; 
+?>
+
+<?php
+is_valid_session();
+?>
 
 <?php
 $errmsg_arr = array();
 
 if (!empty($_POST)) { 
 	if (empty($errors)) {
-		extract($_POST);
-	if ($pw1 !=$pw2) {	
-		die('Passwords do not match');
-	} elseif ($_SESSION['user']['login_pwd'] != $pw) {
-		die('Old password is incorrect');
-	}
-	else {
-		$q = "UPDATE sconnect_user set login_pwd = '$pw1' WHERE USER_ID = " . $_SESSION['user']['USER_ID'];
-		if (!mysqli_query($ch, $q)) {
-		die("Query Error:" . mysqli_error($ch));
-	} 
-	echo "<p style='color:green'>Password Updated</p>";
-		}		
- 	}
+		extract($_POST); 
+
+		if ($_SESSION['user']['login_pwd'] != $old_password) {
+			die('Old password is incorrect');
+		}
+		else {
+			$session_user_id = $_SESSION['user']['user_id'];
+			$user_profile = new UserProfile();
+			$user_profile->fetch($ch, $session_user_id);
+			$user_profile->setLoginPassword($password);
+			$user_profile->update($ch);
+			echo "<p style='color:green'>Password Updated</p>";
+		} 
+	}		
 }
  	
 ?>
 		
 <h2>Change Password</h2>
-<form method="post" action="">
-	Username: <input type="text" name="username" /><sup><font color="red">*</font></sup><br />
-	Password: <input type="password" name="pw" /><sup><font color="red">*</font></sup><br />
-	New Password: <input type="password" name="pw1" /><sup><font color="red">*</font></sup><br /> 
-	Confirm Password: <input type="password" name="pw2" /><sup><font color="red">*</font></sup><br />
-	<button type="submit">Change Password</button>
-	<button type="submit"><a href="index.php">Cancel</a></button>
+<br>
+<form name="change_password" method="post" action="">
+<table border=0 width=100% cellspacing=7 cellpadding=0> 
+<tr>
+<td width=20% align=right font-size=13px>Username: </td><td align=left><input type="text" name="username" /><sup><font color="red">*</font></sup><span id="username_error" style="color:red"></span></td>
+</tr>
+<tr>
+<td width=20% align=right font-size=13px>Password: </td><td align=left><input type="password" name="old_password" /><sup><font color="red">*</font></sup><span id="old_password_error" style="color:red"></span></td>
+</tr>
+<tr>
+<td width=20% align=right font-size=13px>New Password: </td><td align=left><input type="password" name="password" /><sup><font color="red">*</font></sup><span id="password_error" style="color:red"></span></td>
+ </tr>
+<tr>
+<td width=20% align=right font-size=13px>Confirm Password: </td><td align=left><input type="password" name="confirm_password" /><sup><font color="red">*</font></sup><span id="confirm_password_error" style="color:red"></span></td>
+ </tr>
+<tr height=50>
+<td width=20%></td><td><input type="button" value="Change Password" onclick="validateChangePasswordForm()" />
+<input type="button" value="Cancel" onclick='location.href="manage_profile.php"' /></td>
+</tr>
+</table>
 </form>
-<?php include 'footer.php'; ?>
+<?php include_once 'footer.php'; ?>

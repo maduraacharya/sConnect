@@ -323,3 +323,79 @@ function validatePostForm()
 	}
 	return validationStatus;
 }
+
+
+function validateNotifyUsersForm() {
+	var validationStatus = true;
+	var emailSubject = document.forms["notify_user"]["email_subject"].value;
+	var emailMessage = document.forms["notify_user"]["email_message"].value;
+	
+	if (emailSubject == null || emailSubject == "") {
+		document.getElementById("subject_error").innerHTML = 'Subject is required';
+		validationStatus = false;
+	}
+	else {
+		document.getElementById("subject_error").innerHTML = '';
+	}
+	
+	if (emailMessage == null || emailMessage == "") {
+		document.getElementById("message_error").innerHTML = 'Message is required';
+		validationStatus = false;
+	}
+	else {
+		document.getElementById("message_error").innerHTML = '';
+	}
+	
+	if (validationStatus == true) {
+		document.forms["notify_user"].submit();
+	}
+	return validationStatus;
+}
+
+function toggleProfileCookie() {
+	if (readCookie("sConnectProfileToggleStatus") == "0" || readCookie("sConnectProfileToggleStatus") == "" || readCookie("sConnectProfileToggleStatus") == null) {
+		createCookie("sConnectProfileToggleStatus", "1", 1);
+	}
+	else {
+		createCookie("sConnectProfileToggleStatus", "0", 1);
+	}
+}
+
+function toggleProfileMenu() {
+	if (readCookie("sConnectProfileToggleStatus") == "0" || readCookie("sConnectProfileToggleStatus") == "" || readCookie("sConnectProfileToggleStatus") == null) {
+		document.getElementById("edit_profile").style.display = "none";
+		document.getElementById("change_password").style.display = "none";
+		document.getElementById("delete_account").style.display = "none";
+	}
+	else {
+		document.getElementById("edit_profile").style.display = '';
+		document.getElementById("change_password").style.display = '';
+		document.getElementById("delete_account").style.display = '';
+	}
+} 
+
+
+function createCookie(name,value,days) {
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime()+(days*24*60*60*1000));
+        var expires = "; expires="+date.toGMTString();
+    }
+    else var expires = "";
+    document.cookie = name+"="+value+expires+"; path=/";
+}
+
+function readCookie(name) {
+    var nameEQ = name + "=";
+    var ca = document.cookie.split(';');
+    for(var i=0;i < ca.length;i++) {
+        var c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+
+function eraseCookie(name) {
+    createCookie(name,"",-1);
+}

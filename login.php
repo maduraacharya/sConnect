@@ -1,34 +1,38 @@
-<?php include 'header.php'; ?>
+<?php 
+include_once 'header.php';
+include_once 'UserProfile.php';  
+?>
 
 <?php
-$errmsg_arr = array();
 
 if (!empty($_POST)) {
 	if (empty($errors)) {
 		extract($_POST);
 	
-		$q = "SELECT * FROM sconnect_user WHERE STUDENT_ID = '$username' AND login_pwd = '$password'";
-		$result = mysqli_query($ch, $q) or die("QUERY ERROR:" . mysqli_error($ch));
-		if (mysqli_num_rows($result) >0) { 
-			$_SESSION['user'] = mysqli_fetch_assoc($result);
-			header('location:login.php');
-		}  else {
-			die('Please enter the Username and Password');
-		}	
-		
-	}
-	
-	
+		$user_profile = new UserProfile();
+		$user_profile->setStudentID($username);
+		$user_profile->setLoginPassword($password);
+		$user_profile->login($ch);
+	}	
 }
- 
 
 ?>
 
-
-<form method="post" action="">
-	Username: <input type="text" name="username" /><br />
-	Password: <input type="password" name="password" /><br />
-	<button type="submit" name="submit" value="Log In">Log In</button>
+<script type="text/javascript">createCookie("sConnectProfileToggleStatus", "0", 1); toggleProfileMenu();</script>
+<h2>Login</h2>
+<br>
+<form method="post" name="login" action="">
+<table border=0 width=100% cellspacing=7 cellpadding=0> 
+<tr>
+<td width=20% align=right font-size=13px>Username: </td><td align=left><input type="text" name="username" /><sup><font color="red">*</font></sup><span id="username_error" style="color:red"></span></td>
+</tr>
+<tr>
+<td width=20% align=right font-size=13px>Password: </td><td align="left"><input type="password" name="password" /><sup><font color="red">*</font></sup><span id="password_error" style="color:red"></span></td>
+</tr>
+<tr height=50>
+<td width=20%></td><td><input type="button" name="login" value="Login" onclick="validateLoginForm()" /></td>
+</tr>
+</table> 
 </form>
 
-<?php include 'footer.php'; ?>
+<?php include_once 'footer.php'; ?>

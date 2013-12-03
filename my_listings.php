@@ -4,7 +4,7 @@
 is_valid_session();
 ?>
 
- <h2>My Favorites</h2>
+ <h2>My Listings</h2>
  <br>
  <div style="margin-left:75px">
  <h3>Items for Sale</h3>
@@ -13,16 +13,13 @@ is_valid_session();
    $session_user_id = $_SESSION['user']['user_id'];
    $search_type = "item";
    $query = "SELECT 
-   				sconnect_user_favorites.id as favorite_id,
-   				sconnect_item.id as post_id,
+   				sconnect_item.id,
    				sconnect_item.title,
    				sconnect_item.description,
    				sconnect_item.price,
    				date_format(sconnect_item.date_posted, '%M %e, %Y') AS date_posted
-   			FROM sconnect_user_favorites, sconnect_item
-   			WHERE sconnect_user_favorites.user_id = $session_user_id 
-   			AND sconnect_user_favorites.post_id = sconnect_item.id
-   			AND sconnect_user_favorites.post_type = 'Item'
+   			FROM sconnect_item 
+   			WHERE sconnect_item.seller_user_id = $session_user_id 
    			ORDER BY date_posted DESC";
    $data = mysqli_query($ch, $query)
      or die('Error retrieving activity history for Items.');
@@ -31,22 +28,20 @@ is_valid_session();
     echo '<p>No records</p>';
    }
    else{
-     echo '<table width=750px border="1" cellspacing="0" cellpadding="0">
+     echo '<table width=700px border="1" cellspacing="0" cellpadding="0">
 		<tr>
           <th width=200px>Title</th>
           <th width=300px>Description</th> 
           <th width=50px align=right>Price</th>
           <th width=150px align=center>Date Posted</th>
-          <th width=50px align=center>Action</th>
 		</tr>';
      while ($row = mysqli_fetch_array($data)) {
              
        echo "<tr>
-         <td> <a href='view_post.php?action=view&search_type=$search_type&id=" . $row['post_id'] . "'> $row[title] </td>
+         <td> <a href='view_post.php?action=view&search_type=$search_type&id=" . $row['id'] . "'> $row[title] </td>
          <td> $row[description] </td>
          <td align=right> $row[price] </td>
          <td align=center> $row[date_posted]</td>
-         <td align=center> <a href='delete_favorite.php?favorite_id=" . $row['favorite_id'] . "'>Remove</td>
          </tr>";
      }  
      echo '</table>';
@@ -60,16 +55,13 @@ is_valid_session();
    $session_user_id = $_SESSION['user']['user_id'];
    $search_type = "service";
    $query = "SELECT 
-   				sconnect_user_favorites.id as favorite_id,
-   				sconnect_service.id as post_id,
+   				sconnect_service.id,
    				sconnect_service.title,
    				sconnect_service.description,
    				sconnect_service.price,
    				date_format(sconnect_service.date_posted, '%M %e, %Y') AS date_posted
-   			FROM sconnect_user_favorites, sconnect_service
-   			WHERE sconnect_user_favorites.user_id = $session_user_id 
-   			AND sconnect_user_favorites.post_id = sconnect_service.id
-   			AND sconnect_user_favorites.post_type = 'Service'
+   			FROM sconnect_service
+   			WHERE sconnect_service.seller_user_id = $session_user_id 
    			ORDER BY date_posted DESC";
    $data = mysqli_query($ch, $query)
      or die('Error retrieving activity history for Items.');
@@ -78,28 +70,25 @@ is_valid_session();
     echo '<p>No records</p>';
    }
    else{
-     echo '<table width=750px border="1" cellspacing="0" cellpadding="0">
+     echo '<table width=700px border="1" cellspacing="0" cellpadding="0">
 		<tr>
           <th width=200px>Title</th>
           <th width=300px>Description</th>
           <th width=50px align=right>Price</th> 
           <th width=150px align=center>Date Posted</th>
-          <th width=50px align=center>Action</th>
 		</tr>';
      while ($row = mysqli_fetch_array($data)) {
              
        echo "<tr>
-        <td> <a href='view_post.php?action=view&search_type=$search_type&id=" . $row['post_id'] . "'> $row[title] </td>
+        <td> <a href='view_post.php?action=view&search_type=$search_type&id=" . $row['id'] . "'> $row[title] </td>
          <td padding=5px> $row[description] </td>
          <td align=right> $row[price] </td>
          <td align=center> $row[date_posted]</td>
-         <td align=center> <a href='delete_favorite.php?favorite_id=" . $row['favorite_id'] . "'>Remove</td>
          </tr>";
      }  
      echo '</table>';
      echo '<br>';
    }
  ?>
-</div>
 
 <?php include_once 'footer.php'; ?>

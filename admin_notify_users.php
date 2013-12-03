@@ -1,6 +1,11 @@
- <?php 
+<?php 
 include_once 'header.php';
 include_once 'UserProfile.php'; 
+?>
+
+<?php
+is_valid_session();
+is_admin_user();
 ?>
 
 <h2>Notify Users</h2>
@@ -30,19 +35,17 @@ if(!empty($_POST)) {
 ?>
 
 <form name="notify_user" method="post" action=""> 
-<div style="margin-left:75px">
 <table border=0 width=100% cellspacing=7 cellpadding=0> 
 <tr>
-<td width=20% align=right font-size=13px>Subject: </td><td align=left><input type="text" name="email_subject" /><sup><font color="red">*</font></sup><span id="subject_error" style="color:red"></span></td>
+<td width=20% align=right font-size=13px>Subject: </td><td align=left><input style="width:400px;" type="text" name="email_subject" /><sup><font color="red">*</font></sup><span id="subject_error" style="color:red"></span></td>
 </tr>
 <tr>
-<td width=20% align=right font-size=13px>Message: </td><td align=left><textarea name="email_message"></textarea><sup><font color="red">*</font></sup><span id="message_error" style="color:red"></span></td>
+<td width=20% align=right valign=top font-size=13px>Message: </td><td align=left><textarea name="email_message"></textarea><sup><font color="red">*</font></sup><span id="message_error" style="color:red"></span></td>
 </tr>
 <tr height=50>
-<td width=20%></td><td align=left><input type="submit" value="Send Email"> 
+<td width=20%></td><td align=left><input type="button" value="Send Email" onclick="validateNotifyUsersForm()"> 
 </tr>
 </table>
-</div>
 </form>
 
 

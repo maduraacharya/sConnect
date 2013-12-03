@@ -127,7 +127,7 @@ class Service
 		$query = "INSERT INTO sconnect_service
 					(title, description, price, seller_user_id, category) 
 				  VALUES
-				  	('$this->title', '$this->description', '$this->price', $this->seller_user_id, '$this->category')";
+				  	('$this->title', '$this->description', NULLIF('$this->price',''), $this->seller_user_id, '$this->category')";
 		if (!mysqli_query($ch, $query)) {
 			die("Query Error:" . mysqli_error($ch));	
 		}
@@ -138,7 +138,7 @@ class Service
 		$query = "UPDATE sconnect_service SET  
 					title = '$this->title',
 					description = '$this->description',
-					price = '$this->price'
+					price = NULLIF('$this->price','')
 				  WHERE id = $this->id";			
 		if (!mysqli_query($ch, $query)) {
 			die("Query Error:" . mysqli_error($ch));	

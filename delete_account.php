@@ -1,13 +1,24 @@
 <?php
-include 'lib.php';
+session_start();
+include_once 'lib.php';
+include_once 'UserProfile.php'; 
 $ch = dbConnect();
+
+is_valid_session();
+
 if (!empty($_GET)) {
-	if (isset($_GET['USER_ID'])) {
-		$q = "DELETE FROM sconnect_user WHERE USER_ID = $_GET[USER_ID]";
-	if (!mysqli_query($ch, $q)) {
-		die("Query Error:" . mysqli_error($ch));
-	}
+	if (isset($_GET['user_id'])) {
+		$user_profile = new UserProfile();
+		$user_profile->setUserID($_GET['user_id']);
+		$user_profile->fetch($ch, $_GET['user_id']);
+		if ($user_profile->getRole() == 'admin') {
+			die("Admin account cannot be deleted.");
+		}
+		if ($user_profile->getUserID() != $_SESSION['user']['user_id']) {
+			die("You do not have privileges to perform this operation.");
+		}
+		$user_profile->delete($ch);
+	}  
 }
-}
-header('location:logout.php');
+header('location:register.php');
 ?>

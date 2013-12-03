@@ -122,27 +122,29 @@ function show_item($ch=false, $id=false) {
 	<?php if (($seller_user_id == $_SESSION['user']['user_id']) || ($_SESSION['user']['role'] == 'admin')) { ?>		
 		<table border=0 width=100% cellspacing=7 cellpadding=0> 
 		<tr>
-		<td width=20% align=right font-size=13px>Category: </td><td width=40% align=left font-size=13px><?= $category; ?></td>
-		<td width=40% colspan=2 rowspan=5 valign=bottom align=left font-size=13px><img src="data:image/jpeg;base64, <?= base64_encode( $image ) ?> " /></td>
+		<td width=20% align=right font-size=13px>Category: </td><td width=20% align=left font-size=13px><?= $category; ?></td>
 		</tr>
 		<tr>
 		<td width=20% align=right font-size=13px>Title: </td><td width=40% align=left font-size=13px><input type="text" name="title" value="<?= $title; ?>"></td>
 		</tr>
 		<tr>
+		<td width=20% align=right font-size=13px>Posted By: </td><td width=40% align=left font-size=13px><?= $first_name .' '. $last_name; ?></td>
+		<td width=20% align=right font-size=13px>On: </td><td width=20% align=left font-size=13px><?= $date_posted; ?></td>
+		</tr>
+		<tr>
 		<td width=20% align=right valign=top font-size=13px>Description: </td><td width=40% align=left font-size=13px><textarea name="description"><?= $description; ?></textarea></td>
 		</tr>
 		<tr>	
-		<td width=20% align=right font-size=13px>Price: </td><td width=40% align=left font-size=13px><input type="text1" name="price" value="<?= $price; ?>"></td>
+		<td width=20% align=right font-size=13px>Price: </td><td width=40% align=left font-size=13px><input type="text" name="price" value="<?= $price; ?>"></td>
 		</tr>
 		<tr>
-		<td width=20% align=right font-size=13px>Posted By: </td><td width=40% align=left font-size=13px><?= $first_name .' '. $last_name; ?></td>
+		<td width=20% align=right valign=top font-size=13px>Image: </td><td width=40% align=left font-size=13px><img src="data:image/jpeg;base64, <?= base64_encode( $image ) ?> " /></td>
 		</tr>
 		<tr>
-		<td width=20% align=right font-size=13px>Posted On: </td><td width=40% align=left font-size=13px><?= $date_posted; ?></td>
-		<td width=40% align=top-left font-size=13px><label for="image">Change Image: </label><input type="file" name="image" value="Choose File" ></td>
+		<td width=20% align=right font-size=13px>Change Image: </td><td width=40% align=left font-size=13px><input type="file" name="image" value="Choose File" ></td>
 		</tr>
 		<tr>
-		<td width=20% align=right font-size=13px></td><td width=40% align=left font-size=13px><input type="submit" name="btnUpdateItem" value="Update Post" /> <input type="submit" name="btnDeleteItem" value="Delete Post" /></td>
+		<td width=20% align=right font-size=13px></td><td width=20% align=left font-size=13px><input type="submit" name="btnUpdateItem" value="Update Post" /> <input type="submit" name="btnDeleteItem" value="Delete Post" /></td>
 		</tr>
 		</table>
 		<br>
@@ -153,10 +155,13 @@ function show_item($ch=false, $id=false) {
 		<table border=0 width=100% cellspacing=7 cellpadding=0>
 		<tr>
 		<td width=20% align=right font-size=13px>Category: </td><td width=20% align=left font-size=13px><?= $category; ?></td>
-		<td width=40% rowspan=7 align=middle font-size=13px><img src="data:image/jpeg;base64, <?= base64_encode( $image ) ?> " /></td>
 		</tr>
 		<tr>
 		<td width=20% align=right font-size=13px>Title: </td><td width=40% align=left font-size=13px><?= $title; ?></td>
+		</tr>
+		<tr>
+		<td width=20% align=right font-size=13px>Posted By: </td><td width=40% align=left font-size=13px><?= $first_name .' '. $last_name; ?></td>
+		<td width=20% align=right font-size=13px>On: </td><td width=20% align=left font-size=13px><?= $date_posted; ?>
 		</tr>
 		<tr>
 		<td width=20% align=right valign=top font-size=13px>Description: </td><td width=40% align=left font-size=13px><?= $description; ?></td>
@@ -165,10 +170,7 @@ function show_item($ch=false, $id=false) {
 		<td width=20% align=right font-size=13px>Price: </td><td width=40% align=left font-size=13px><?= $price; ?></td>
 		</tr>
 		<tr>
-		<td width=20% align=right font-size=13px>Posted By: </td><td width=40% align=left font-size=13px><?= $first_name .' '. $last_name; ?></td>
-		</tr>
-		<tr>
-		<td width=20% align=right font-size=13px>Posted On: </td><td width=40% align=left font-size=13px><?= $date_posted; ?>
+		<td width=20% align=right valign=top font-size=13px>Image: </td><td width=40% align=left font-size=13px><img src="data:image/jpeg;base64, <?= base64_encode( $image ) ?> " /></td>
 		</tr>
 		<tr>
 		<td width=20% valign="top" align=right font-size=13px></td><td width=40% align=left font-size=13px><input type="button" name="btnAddItemToFavorite" value="Add to Favorites" onclick="location.href='create_favorite.php?post_id=<?= $id; ?>&post_type=Item'"/></td>
@@ -260,25 +262,23 @@ function show_service($ch=false, $id=false) {
 	<?php if (($seller_user_id == $_SESSION['user']['user_id']) || ($_SESSION['user']['role'] == 'admin')) { ?>
 		<table border=0 width=100% cellspacing=7 cellpadding=0> 
 		<tr>
-		<td width=10% align=right font-size=13px>Category: </td><td width=40% align=left font-size=13px><?= $category; ?></td>
+		<td width=20% align=right font-size=13px>Category: </td><td width=20% align=left font-size=13px><?= $category; ?></td>
 		</tr>
 		<tr>
-		<td width=10% align=right font-size=13px>Title: </td><td width=40% align=left font-size=13px><input type="text" name="title" value="<?= $title; ?>"></td>
+		<td width=20% align=right font-size=13px>Title: </td><td width=40% align=left font-size=13px><input type="text" name="title" value="<?= $title; ?>"></td>
 		</tr>
 		<tr>
-		<td width=10% align=right valign=top font-size=13px>Description: </td><td width=40% align=left font-size=13px><textarea name="description"><?= $description; ?></textarea></td>
+		<td width=20% align=right font-size=13px>Posted By: </td><td width=40% align=left font-size=13px><?= $first_name .' '. $last_name; ?></td>
+		<td width=20% align=right font-size=13px>On: </td><td width=20% align=left font-size=13px><?= $date_posted; ?></td>
+		</tr>
+		<tr>
+		<td width=20% align=right valign=top font-size=13px>Description: </td><td width=40% align=left font-size=13px><textarea name="description"><?= $description; ?></textarea></td>
 		</tr>
 		<tr>	
-		<td width=10% align=right font-size=13px>Price: </td><td width=40% align=left font-size=13px><input type="text" name="price" value="<?= $price; ?>"></td>
+		<td width=20% align=right font-size=13px>Price: </td><td width=40% align=left font-size=13px><input type="text" name="price" value="<?= $price; ?>"></td>
 		</tr>
 		<tr>
-		<td width=10% align=right font-size=13px>Posted By: </td><td width=40% align=left font-size=13px><?= $first_name .' '. $last_name; ?></td>
-		</tr>
-		<tr>
-		<td width=10% align=right font-size=13px>Posted On: </td><td width=40% align=left font-size=13px><?= $date_posted; ?></td>
-		</tr>
-		<tr>
-		<td width=10% align=right font-size=13px></td><td width=10% align=left font-size=13px><input type="submit" name="btnUpdateService" value="Update Post" /> <input type="submit" name="btnDeleteService" value="Delete Post" /></td>
+		<td width=20% align=right font-size=13px></td><td width=20% align=left font-size=13px><input type="submit" name="btnUpdateService" value="Update Post" /> <input type="submit" name="btnDeleteService" value="Delete Post" /></td>
 		</tr>
 		</table>
 		<br>
@@ -289,25 +289,23 @@ function show_service($ch=false, $id=false) {
 	?>
 		<table border=0 width=100% cellspacing=7 cellpadding=0> 
 		<tr>
-		<td width=10% align=right font-size=13px>Category: </td><td width=40% align=left font-size=13px><?= $category; ?></td>
+		<td width=20% align=right font-size=13px>Category: </td><td width=20% align=left font-size=13px><?= $category; ?></td>
 		</tr>
 		<tr>
-		<td width=10% align=right font-size=13px>Title: </td><td width=40% align=left font-size=13px><?= $title; ?></td>
+		<td width=20% align=right font-size=13px>Title: </td><td width=40% align=left font-size=13px><?= $title; ?></td>
 		</tr>
 		<tr>
-		<td width=10% align=right valign=top font-size=13px>Description: </td><td width=40% align=left font-size=13px><?= $description; ?></td>
+		<td width=20% align=right font-size=13px>Posted By: </td><td width=40% align=left font-size=13px><?= $first_name .' '. $last_name; ?></td>
+		<td width=20% align=right font-size=13px>On: </td><td width=20% align=left font-size=13px><?= $date_posted; ?>
+		</tr>
+		<tr>
+		<td width=20% align=right valign=top font-size=13px>Description: </td><td width=40% align=left font-size=13px><?= $description; ?></td>
 		</tr>
 		<tr>	
-		<td width=10% align=right font-size=13px>Price: </td><td width=40% align=left font-size=13px><?= $price; ?></td>
+		<td width=20% align=right font-size=13px>Price: </td><td width=40% align=left font-size=13px><?= $price; ?></td>
 		</tr>
 		<tr>
-		<td width=10% align=right font-size=13px>Posted By: </td><td width=40% align=left font-size=13px><?= $first_name .' '. $last_name; ?></td>
-		</tr>
-		<tr>
-		<td width=10% align=right font-size=13px>Posted On: </td><td width=40% align=left font-size=13px><?= $date_posted; ?></td>
-		</tr>
-		<tr>
-		<td width=10% valign="top" align=right font-size=13px></td><td width=40% align=left font-size=13px><input type="button" name="btnAddToFavorite" value="Add to Favorites" onclick="location.href='create_favorite.php?post_id=<?= $id; ?>&post_type=Service'"/></td>
+		<td width=20% valign="top" align=right font-size=13px></td><td width=40% align=left font-size=13px><input type="button" name="btnAddToFavorite" value="Add to Favorites" onclick="location.href='create_favorite.php?post_id=<?= $id; ?>&post_type=Service'"/></td>
 		</tr>
 		</table>
 		<br>
@@ -342,7 +340,7 @@ function show_service($ch=false, $id=false) {
 	echo "<div style=\"width:550px; margin-left:10px;\">"; 
 	while ($row = mysqli_fetch_assoc($results)) {  
 		$popupURL = 'send_email.php?action=send&id=' . $id . '&buyer_user_id=' . $row['buyer_user_id'];
-		echo "<table width=550px border='0px'>";
+		echo "<table width=66% border='0px'>";
 		echo "<tr>";
 		echo "<td width=30% style=\"color:#AF7A5E;\">" . $row['FIRST_NAME'] . " " . $row['LAST_NAME'] . "</td>";  
 		echo "<td width=50% align=left style=\"color:#AF7A5E;\">" . $row['date_comment_added'] . "</td>"; 

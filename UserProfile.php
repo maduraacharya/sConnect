@@ -10,6 +10,7 @@ class UserProfile
     private $login_pwd; // login password
     private $contact_email; // student's contact email
     private $contact_phone; // student's contact phone
+    private $role; // regular user vs admin
     private $date_created; // when student registered
     private $date_modified; // record last modified
 
@@ -51,6 +52,10 @@ class UserProfile
 		$this->contact_phone = $contact_phone;
 	}
 	
+	public function setRole($role) {
+		$this->role = $role;
+	}
+	
 	public function getUserID() {
 		return $this->user_id;
 	}
@@ -79,8 +84,12 @@ class UserProfile
 		return $this->contact_phone;
 	}
 	
+	public function getRole() {
+		return $this->role;
+	}
+	
 	public function fetchAsArray($ch, $user_id) {
-		$query = "SELECT user_id, first_name, last_name, student_id, login_pwd, contact_email, contact_phone
+		$query = "SELECT user_id, first_name, last_name, student_id, login_pwd, contact_email, contact_phone, role
 					FROM sconnect_user WHERE user_id = $user_id";
 		$result = mysqli_query($ch, $query) or die("Query Error:" . mysqli_error($ch));
 		if (mysqli_num_rows($result) > 0) { 
@@ -94,7 +103,6 @@ class UserProfile
 	
 	public function fetch($ch, $user_id) {
 		$row = $this->fetchAsArray($ch, $user_id);
-		$_SESSION['user'] = $row;
 		extract($row);
 		$this->setUserID($user_id);
 		$this->setFirstName($first_name);
@@ -130,14 +138,34 @@ class UserProfile
 	}
 	
 	public function delete($ch) {
-		$q = "DELETE FROM sconnect_user WHERE USER_ID = $this->user_id";
+		$q = "DELETE FROM sconnect_user_favorites WHERE user_id = $this->user_id";
+		if (!mysqli_query($ch, $q)) {
+			die("Query Error:" . mysqli_error($ch));
+		}
+		$q = "DELETE FROM sconnect_service_comment WHERE buyer_user_id = $this->user_id";
+		if (!mysqli_query($ch, $q)) {
+			die("Query Error:" . mysqli_error($ch));
+		}
+		$q = "DELETE FROM sconnect_item_bid WHERE buyer_user_id = $this->user_id";
+		if (!mysqli_query($ch, $q)) {
+			die("Query Error:" . mysqli_error($ch));
+		}
+		$q = "DELETE FROM sconnect_service WHERE seller_user_id = $this->user_id";
+		if (!mysqli_query($ch, $q)) {
+			die("Query Error:" . mysqli_error($ch));
+		}
+		$q = "DELETE FROM sconnect_item WHERE seller_user_id = $this->user_id";
+		if (!mysqli_query($ch, $q)) {
+			die("Query Error:" . mysqli_error($ch));
+		}
+		$q = "DELETE FROM sconnect_user WHERE user_id = $this->user_id";
 		if (!mysqli_query($ch, $q)) {
 			die("Query Error:" . mysqli_error($ch));
 		}
 	}
 	
 	public function login($ch) {
-		$query = "SELECT user_id, first_name, last_name, student_id, login_pwd, contact_email, contact_phone
+		$query = "SELECT user_id, first_name, last_name, student_id, login_pwd, contact_email, contact_phone, role
 					FROM sconnect_user WHERE student_id = '$this->student_id' AND login_pwd = '$this->login_pwd'";
 		$result = mysqli_query($ch, $query) or die("QUERY ERROR:" . mysqli_error($ch));
 		if (mysqli_num_rows($result) > 0) { 
@@ -148,7 +176,7 @@ class UserProfile
 			$this->setLastName($row['last_name']);
 			$this->setContactEmail($row['contact_email']);
 			$this->setContactPhone($row['contact_phone']);
-			header('location:index.php');
+			header('location:search.php');
 		}
 		else {
 			die("Login Error: Incorrect username or password");

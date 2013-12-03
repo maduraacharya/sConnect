@@ -1,0 +1,147 @@
+		*{ 
+			margin:0;
+			padding:0;
+		}
+		 body {
+			background:#EEF2F7;
+			} 
+		#global {
+			width:100%;
+		
+			margin:0 auto;
+		}
+		#header {
+			height:100px; 
+			background:white;
+			margin-left:112px;
+			margin-right:88px;
+			text-align:right; 
+			width:84%;
+		}
+	#nav {
+			background:#EEF2F7;
+			height:20px;
+			margin-left:112px;
+			margin-right:88px;
+			width:84%;
+			text-align:right;
+			text-valign:center;
+		}
+		#content1 {
+  			float:left;		
+    		width:16%; 
+    		margin-left:110px;
+    		font-weight:bold;
+    		height:488px;
+			}
+		#content2 {
+  			float:right; 
+    		background:lightblue;
+    		width:68%;
+    		margin-right:88px;
+    		height:488px;
+    		overflow-Y:scroll;
+    	} 	
+		#footer {
+  			 	position:absolute;
+   				bottom:0;
+   				margin-left:112px;
+				margin-right:88px;		
+				width:84%;
+   				height:20px;   
+   				background:#EEF2F7; 
+			}
+		img {
+
+			max-width:200px;
+			max-height:200px;
+		}
+		
+		input[type="text"] {
+		
+		height:20px;
+		width:250px;
+		font-size:13px;
+		border: 1px solid grey;
+		}
+		
+		input[type="text1"] {
+		
+		height:20px;
+		width:60px;
+		font-size:13px;
+		border: 1px solid grey;
+		}
+		
+		input[type="password"] {
+		
+		height:20px;
+		width:250px;
+		font-size:13px;
+		border: 1px solid grey;
+		}
+		
+		textarea {
+		height:100px;
+		width:300px;
+		font-size:13px;
+		resize: none;
+		overflow-y: scroll;
+		border: 1px solid grey;
+		}
+		
+		input[type="button"] {
+		
+		height:20px;
+		width:120px;
+		font-size:13px;
+		border: 1px solid grey;
+		-moz-border-radius: 15px;
+  		-webkit-border-radius: 15px;
+		}
+		
+		input[type="submit"] {
+		
+		height:20px;
+		width:120px;
+		font-size:13px;
+		border: 1px solid grey;
+		-moz-border-radius: 15px;
+  		-webkit-border-radius: 15px;
+		}
+
+		
+		button {
+		height:20px;
+		width:120px;
+		font-size:13px;
+		border: 1px solid grey;
+		-moz-border-radius: 15px;
+  		-webkit-border-radius: 15px;
+		}
+		
+		legend {
+			font-size:  16px;
+			font-weight:  bold;
+			position:  relative;
+			top:  -.4em;
+		}
+
+	a {
+    text-decoration:none;
+	}
+	a:hover {
+   text-decoration:underline;
+	}
+
+
+	hr {
+		border: 1px solid grey;
+	}
+	
+fieldset {
+  width:550px;
+  margin-left:10px;
+  border: 1px solid grey;
+  padding:10px 6px;
+}

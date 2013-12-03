@@ -1,7 +1,6 @@
-<?php include 'header.php'; ?>
+<?php include_once 'header.php'; ?>
 
 <?php
-$errmsg_arr = array();
 
 if (!empty($_POST)) {
 	if (empty($errors)) {
@@ -13,29 +12,29 @@ if (!empty($_POST)) {
 		$result = mysqli_query($ch, $q) or die("QUERY ERROR:" . mysqli_error($ch));
 		if (mysqli_num_rows($result) >0) { 
 			$user_record = mysqli_fetch_assoc($result);
-		//	$email  = "brindha.sathish@gmail.com"; 
+			$email  = "brindha.sathish@gmail.com"; 
 			$title   = "Test email"; 
 			$message = "Your password is " . $user_record['login_pwd']; 
 			mail($email, $title, $message); 
 			echo "<p>Your Password has been emailed.</p>";
 		}	
 		
-	}
-	
-	
+	}  
 }
 }
 
 ?>
-<html>
-<head></head>
-<title></title>
-<body>			
-<form method="post" action="">
-Enter you email ID: <input type="text" name="email">
-<input type="submit" name="submit" value="Submit">
+<h2>Forgot Password</h2>	
+<br>	
+<form name="forgot_password" method="post" action="">
+<table border=0 width=100% cellspacing=7 cellpadding=0> 
+<tr>
+<td width=20% align=right font-size=13px>Contact Email: </td><td align=left><input type="text" name="email"><span id="email_error" style="color:red"></span></td>
+</tr>
+<tr height=50>
+<td width=20%></td><td><input type="button" name="forgot_password_submit" value="Submit" onclick="validateForgotPasswordForm()" /></td>
+</tr>
+</table>
 </form>
-</body>
-</html>	
 
-<?php include 'footer.php'; ?>
+<?php include_once 'footer.php'; ?>

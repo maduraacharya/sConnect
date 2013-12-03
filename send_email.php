@@ -1,10 +1,12 @@
 
 <?php
 session_start();
-include 'lib.php';
-$ch =dbConnect();
-$errors = [];
+include_once 'lib.php';
+$ch = dbConnect();
+$errors = []; 
 $errmsg_arr = array();
+
+is_valid_session();
 
 if (!empty($_POST)) {
 	if (empty($errors)) {
